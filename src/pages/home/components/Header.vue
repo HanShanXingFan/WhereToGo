@@ -2,7 +2,7 @@
   <div class="header">
   	<div class="header-left"><i class="iconfont icon-fanhui"></i></div>
   	<div class="header-input"><i class="iconfont icon-sousuo"></i>输入城市/景点/主题</div>
-  	<div class="header-right">城市<i class="iconfont icon-paixujiantouxia"></i></div>
+  	<div class="header-right">{{city}}<i class="iconfont icon-paixujiantouxia"></i></div>
   </div>
 </template>
 
@@ -13,6 +13,9 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  props: {
+  	city: String
   }
 }
 </script>

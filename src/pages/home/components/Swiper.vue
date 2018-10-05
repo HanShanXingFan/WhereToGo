@@ -1,8 +1,8 @@
 <template>
 	<div class="wrapper">
-		<swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback">
+		<swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback" v-if="showSwiper">
 			<!-- slides -->
-			<swiper-slide v-for="(item, index) in swiperList" :key = "item.id">
+			<swiper-slide v-for="(item, index) in list" :key = "item.id">
 				<img 
 					class="swiper-img" 
 					:src="item.imgUrl" />
@@ -23,21 +23,17 @@
 					pagination: '.swiper-pagination',
 					loop: true
 				},
-				swiperList: [
-					{
-						id: '001',
-						imgUrl: 'http://img1.qunarzz.com/piao/fusion/1809/bb/3796236479c84d02.jpg_750x200_57d68258.jpg'
-					},
-					{
-						id: '002',
-						imgUrl: 'http://img1.qunarzz.com/piao/fusion/1808/f4/5f2289f8675f0502.jpg_750x200_ab1633c7.jpg'
-					},
-				]
 			}
+		},
+		props: {
+			list: Array
 		},
 		computed: {
 			swiper() {
 				return this.$refs.mySwiper.swiper
+			},
+			showSwiper () {
+				return this.list.length
 			}
 		},
 		methods: {
@@ -47,7 +43,7 @@
 		},
 		mounted() {
 			//    console.log('this is current swiper instance object', this.swiper)
-			this.swiper.slideTo(3, 1000, false)
+//			this.swiper.slideTo(3, 1000, false)
 		}
 	}
 </script>
@@ -59,7 +55,7 @@
 			overflow: hidden
 			width: 100%
 			height: 0
-			padding-bottom: 26.55%
+			padding-bottom: 31.25%
 			.swiper-img
 				width: 100%
 </style>
