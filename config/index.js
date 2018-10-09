@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
     	'/**': {
-    		target: 'http://localhost:8080',  //请求'/api'的地址的时候,转发到8080端口上的服务
+    		target: 'http://localhost:8081',  //请求'/api'的地址的时候,转发到8080端口上的服务
     		changeOrigin: true,  //是否跨域
     		pathRewrite: {  //路径进行一个替换
     			'^/api': '/static/mock' //一旦请求的地址是以api开头,那么我就把它替换请求到本地的static路径下的mock文件夹下
