@@ -1,15 +1,57 @@
 <template>
 	<div class="search">
-		<input class="search-input" type="text" placeholder="输入城市名或拼音"/>
+		<input v-model="keyWord" class="search-input" type="text" placeholder="输入城市名或拼音"/>
+		<div v-show="keyWord" class="search-content" ref="search">
+			<ul>
+				<li class="search-item border-bottom" v-for="item in list" :key="item.id">{{item.name}}</li>
+				<li v-show="hasNoData" class="search-item border-bottom">没有找到匹配数据</li>
+			</ul>
+		</div>
 	</div>
 </template>
 
 <script>
+	import Bscroll from 'better-scroll'
 	export default {
 		name: 'citySearch',
-		data () {
+		data () { //第一步:搜索词和数据进行一个绑定
 			return {
-				
+				keyWord: '',
+				list: [],
+				timer: null //节流
+			}
+		},
+		props: {
+			cities: Object
+		},
+		mounted () {
+			this.scroll = new Bscroll(this.$refs.search)
+		},
+		computed: {
+			hasNoData () {  //避免页面逻辑运算
+				return !this.list.length
+			}
+		},
+		watch: {
+			keyWord () {
+				if (this.timer) {
+					clearTimeout(this.timer)
+				}
+				if (!this.keyWord) {
+					this.list = [];
+					return 
+				}
+				this.timer = setTimeout (() => {
+					const result = []
+					for (let i in this.cities) {
+						this.cities[i].forEach((value, index) => {
+							if (value.spell.indexOf(this.keyWord) > -1 || value.name.indexOf(this.keyword) > -1) {
+								result.push(value)
+							}
+						})
+					}
+					this.list = result
+				}, 100) //keyword发生改变的时候,隔一百毫秒之后在执行箭头函数
 			}
 		}
 	}
@@ -30,4 +72,18 @@
 			border-radius: .06rem
 			color: #666
 			box-sizing: border-box
+	.search-content
+		overflow: hidden
+		position: absolute
+		top: 1.58rem
+		left: 0
+		right: 0
+		bottom: 0 
+		background: #eee
+		z-index: 1
+		.search-item
+			line-height: .62rem
+			padding-left: .2rem
+			background: #fff
+			color: #666
 </style>

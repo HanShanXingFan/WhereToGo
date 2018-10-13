@@ -1,7 +1,7 @@
 <template>
 	<div>
 	<city-header></city-header>
-	<city-search></city-search>
+	<city-search :cities = "cities"></city-search>
 	<city-list :cities = "cities" :hot="hotCities"
 		:letter="letter"
 	></city-list>
@@ -42,6 +42,7 @@
 					if (res.ret && res.data) {
 						const data = res.data
 						this.cities = data.cities
+//						console.log(this.cities)
 						this.hotCities = data.hotCities
 					}
 			},
