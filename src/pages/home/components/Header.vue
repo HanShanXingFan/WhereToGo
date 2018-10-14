@@ -3,7 +3,7 @@
   	<div class="header-left"><i class="iconfont icon-fanhui"></i></div>
   	<div class="header-input"><i class="iconfont icon-sousuo"></i>输入城市/景点/主题</div>
   	<router-link to="/city">
-  		<div class="header-right">{{city}}<i class="iconfont icon-paixujiantouxia"></i></div>
+  		<div class="header-right">{{$store.state.city}}<i class="iconfont icon-paixujiantouxia"></i></div>
   	</router-link>
   	
   </div>
@@ -16,9 +16,6 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
-  },
-  props: {
-  	city: String
   }
 }
 </script>
@@ -37,7 +34,8 @@ export default {
 			.icon-fanhui
 				padding-left: 0.2rem;
 		.header-right
-			width: 1.24rem
+			min-width: 1.04rem
+			padding: 0 .1rem
 			float: right
 			text-align: center
 			color: #fff

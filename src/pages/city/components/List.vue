@@ -5,14 +5,19 @@
 			<div class="title border-topbottom">当前城市</div>
 			<div class="button-list">
 				<div class="button-wrapper">
-					<div class="button">北京</div>
+					<div class="button">{{$store.state.city}}</div>
 				</div>
 			</div>
 		</div>
 		<div class="area">
 			<div class="title border-topbottom">热门城市</div>
 			<div class="button-list">
-				<div class="button-wrapper" v-for="item in hot" :key="item.id">
+				<div 
+					class="button-wrapper" 
+					v-for="item in hot" 
+					:key="item.id"
+					@click="hanleCityclick(item.name)"
+				>
 					<div class="button">{{item.name}}</div>
 				</div>
 			</div>
@@ -20,7 +25,7 @@
 		<div class="area" v-for="(item, key) in cities" :key="key" :ref="key">
 			<div class="title border-topbottom">{{key}}</div>
 			<div class="item-list">
-				<div class="item border-bottom" v-for="innerItem in item" :key="innerItem.id">{{innerItem.name}}</div>
+				<div class="item border-bottom" v-for="innerItem in item" :key="innerItem.id" @click="hanleCityclick(innerItem.name)">{{innerItem.name}}</div>
 
 			</div>
 		</div>
@@ -30,6 +35,7 @@
 
 <script>
 	import Bscroll from 'better-scroll'
+	import { mapMutations } from 'vuex'
 	export default {
 		name: 'cityList',
 		props: {
@@ -44,6 +50,14 @@
 		},
 		mounted () {
 			this.scroll = new Bscroll(this.$refs.wrapper)
+		},
+		methods: {
+			hanleCityclick (name) {
+//				this.$store.commit('changecity', name)
+				this.changecity(name)
+				this.$router.push('/')
+			},
+			...mapMutations(['changecity'])//我们有一个mutation叫changecity, 然后我把这个mutation映射到组件内一个叫changecity的方法,如果调这个mutation,只需要调用changecity方法就可以了
 		},
 		watch: {
 			letter () {

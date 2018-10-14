@@ -3,7 +3,7 @@
 		<input v-model="keyWord" class="search-input" type="text" placeholder="输入城市名或拼音"/>
 		<div v-show="keyWord" class="search-content" ref="search">
 			<ul>
-				<li class="search-item border-bottom" v-for="item in list" :key="item.id">{{item.name}}</li>
+				<li class="search-item border-bottom" v-for="item in list" @click="hanleCityclick(item.name)" :key="item.id">{{item.name}}</li>
 				<li v-show="hasNoData" class="search-item border-bottom">没有找到匹配数据</li>
 			</ul>
 		</div>
@@ -30,6 +30,12 @@
 		computed: {
 			hasNoData () {  //避免页面逻辑运算
 				return !this.list.length
+			}
+		},
+		methods: {
+			hanleCityclick (name) {
+				this.$store.commit('changecity', name)
+				this.$router.push('/')
 			}
 		},
 		watch: {
